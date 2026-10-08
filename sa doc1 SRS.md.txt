@@ -1,0 +1,118 @@
+An Software Requirements Specification (SRS) document for the SA BANK system covers all standard IEEE-compliant functional and non-functional requirements.
+
+
+Software Requirements Specification (SRS)
+Project: SA BANK Online Banking System
+1. Introduction
+1.1 Purpose
+This Software Requirements Specification (SRS) details the functional and non-functional requirements for SA BANK, a web and mobile banking application. It provides developers, testers, and stakeholders with a complete blueprint for system design, implementation, and testing.
+
+
+1.2 Scope
+SA BANK will allow customers to perform core financial operations online, including account management, fund transfers, transaction history tracking, bill payments, and profile settings. Administrative staff will manage customer accounts, approve high-value transactions, handle support tickets, and generate financial reports.
+
+
+1.3 Definitions, Acronyms, and Abbreviations
+* SRS: Software Requirements Specification
+
+* 2FA: Two-Factor Authentication
+
+* KYC: Know Your Customer
+
+* RBAC: Role-Based Access Control
+
+* PIN: Personal Identification Number
+
+* API: Application Programming Interface
+
+2. Overall Description
+2.1 Product Perspective
+SA BANK operates as a standalone web and mobile-accessible system backed by a cloud infrastructure, communicating securely via RESTful APIs and connecting to central banking payment gateways (e.g., NEFT, RTGS, IMPS, SWIFT).
+
+
+2.2 User Classes and Characteristics
+* Customer: Registered end-users using the portal to manage personal finances, transfer funds, and view statements.
+
+* Bank Teller / Officer: Internal staff handling account verifications, manual overrides, and customer support.
+
+* System Administrator: IT personnel responsible for user management, system logging, audit trails, and security configurations.
+
+2.3 Operating Environment
+* Client Side: Modern web browsers (Chrome, Firefox, Edge, Safari) and mobile platforms (iOS 14+, Android 8.0+).
+
+* Server Side: Containerized backend architecture (Node.js / Java Spring Boot) with an enterprise database (PostgreSQL / Oracle SQL) and Redis cache layer.
+
+2.4 Design and Implementation Constraints
+* Compliance with financial regulatory standards (e.g., PCI-DSS, RBI/GDPR privacy guidelines).
+
+* End-to-end transport layer encryption (TLS 1.3).
+
+* Strict separation of core database access using microservices.
+
+3. System Features & Functional Requirements
+3.1 User Authentication & Profile Management
+* FR-1.1: The system shall allow users to register an account using validated personal details (KYC documentation).
+
+* FR-1.2: The system shall enforce Two-Factor Authentication (2FA) via SMS/email OTP or authenticator app during login.
+
+* FR-1.3: The system shall lock accounts after 3 consecutive failed login attempts.
+
+* FR-1.4: Users shall be able to reset passwords using an OTP sent to their verified email/mobile number.
+
+3.2 Account & Balance Management
+* FR-2.1: The system shall display real-time balances for savings, current, loan, and fixed deposit accounts.
+
+* FR-2.2: The system shall present a detailed account summary, including account numbers, account types, and available balances.
+
+* FR-2.3: Customers shall be able to generate and download e-statements in PDF and CSV formats for custom date ranges.
+
+3.3 Fund Transfers & Payments
+* FR-3.1: The system shall allow intra-bank (SA BANK to SA BANK) and inter-bank fund transfers.
+
+* FR-3.2: The system shall require dynamic OTP or Transaction PIN confirmation prior to processing any fund transfer.
+
+* FR-3.3: The system shall support beneficiary management (add, edit, delete, and approve new payees).
+
+* FR-3.4: Users shall be able to schedule recurring transfers (e.g., monthly standing orders).
+
+3.4 Administrative Operations
+* FR-4.1: Admins shall be able to view, freeze, or unfreeze customer accounts based on security alerts or compliance requests.
+
+* FR-4.2: Tellers shall be able to approve pending high-value transactions flagged by fraud monitoring algorithms.
+
+* FR-4.3: System admins shall have access to audit logs showing user actions, timestamps, and IP addresses.
+
+4. External Interface Requirements
+4.1 User Interfaces
+* Clean, responsive dashboard displaying account overview, quick transfer widgets, and recent transactions.
+
+* High contrast modes and accessible UI components meeting WCAG 2.1 AA guidelines.
+
+4.2 Software Interfaces
+* Payment Gateways: API integration with national/international settlement networks.
+
+* SMS/Email Gateways: Integration with Twilio/SendGrid for real-time OTP delivery and transactional notifications.
+
+5. Non-Functional Requirements
+5.1 Performance Requirements
+* The system shall process fund transfer requests within 2 seconds under normal load.
+
+* The system shall support at least 10,000 concurrent active user sessions.
+
+5.2 Safety & Security Requirements
+* Data Encryption: All stored sensitive data (passwords, PINs) must be hashed using bcrypt/Argon2. Transmitted data must use AES-256 / TLS 1.3 encryption.
+
+* Session Management: Session timeout after 5 minutes of user inactivity.
+
+* Penetration Testing: System must prevent SQL injection, Cross-Site Scripting (XSS), and Cross-Site Request Forgery (CSRF).
+
+5.3 Reliability & Availability
+* The system shall maintain an uptime availability of 99.99% (excluding planned maintenance).
+
+* Automated daily database backups with off-site disaster recovery storage.
+
+5.4 Maintainability & Usability
+* The interface shall require no prior training for standard retail banking operations.
+
+* Modular microservice architecture allowing updates to specific services without full system downtime.
+
